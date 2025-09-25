@@ -10,7 +10,6 @@ interface Props {
   featurePath: string;
 }
 
-
 const UserItem = (props: Props) => {
   const { displayToast } = useContext(ToastActionsContext);
   const { displayedUser, authToken } = useContext(UserInfoContext);

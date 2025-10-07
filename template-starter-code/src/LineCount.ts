@@ -3,22 +3,19 @@ import { FileProcessor } from "./FileProcessor";
 class LineCount extends FileProcessor {
   private totalLineCount: number = 0;
 
+  protected processLine(_filePath: string, _line: string, _lineNum: number): void {
+    this.totalLineCount++;
+  }
+
+  protected override onFileComplete(filePath: string, lineCount: number): void {
+    console.log(`${lineCount} ${filePath}`);
+  }
+
+  protected override onComplete(): void {
+    console.log(`TOTAL: ${this.totalLineCount}`);
+  }
+
   public static main(): void {
-    let lineCount: LineCount;
-
-    protected processLine(_filePath: string, _line: string, _lineNum: number): void {
-      this.totalLineCount++;
-    }
-
-    protected override onFileComplete(filePath: string, lineCount: number): void {
-      console.log(`${lineCount} ${filePath}`);
-    }
-
-    protected override onComplete(): void {
-      console.log(`TOTAL: ${this.totalLineCount}`);
-    }
-
-    public static main(): void {
     let lineCount: LineCount;
 
     if (process.argv.length === 4) {
@@ -33,6 +30,5 @@ class LineCount extends FileProcessor {
     lineCount.run();
   }
 }
-
 
 LineCount.main();

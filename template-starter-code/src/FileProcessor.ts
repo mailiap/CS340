@@ -1,4 +1,3 @@
-// FileProcessor.ts
 import * as fs from "fs";
 import * as path from "path";
 
@@ -13,13 +12,11 @@ export abstract class FileProcessor {
     this.recurse = recurse;
   }
 
-  // --- TEMPLATE METHOD ---
   public async run(): Promise<void> {
     await this.processDirectory(this.dirName);
     this.onComplete();
   }
 
-  // Shared directory traversal
   private async processDirectory(dirPath: string): Promise<void> {
     if (!this.isDirectory(dirPath)) {
       this.nonDirectory(dirPath);
@@ -33,7 +30,6 @@ export abstract class FileProcessor {
 
     const files = fs.readdirSync(dirPath);
 
-    // Process all readable files
     for (const file of files) {
       const fullPath = path.join(dirPath, file);
       if (this.isFile(fullPath) && this.isReadable(fullPath)) {
@@ -41,7 +37,6 @@ export abstract class FileProcessor {
       }
     }
 
-    // If recursive, handle subdirectories
     if (this.recurse) {
       for (const file of files) {
         const fullPath = path.join(dirPath, file);
@@ -52,7 +47,6 @@ export abstract class FileProcessor {
     }
   }
 
-  // Common file reading
   private async processFile(filePath: string): Promise<void> {
     if (!this.fileRegExp.test(filePath)) return;
 
@@ -72,14 +66,12 @@ export abstract class FileProcessor {
     }
   }
 
-  // --- ABSTRACT + HOOK METHODS ---
   protected abstract processLine(filePath: string, line: string, lineNum: number): void;
 
   protected onFileStart(_filePath: string): void {}
   protected onFileComplete(_filePath: string, _lineCount: number): void {}
   protected onComplete(): void {}
 
-  // --- Utility helpers (shared for all subclasses) ---
   protected isDirectory(p: string): boolean {
     try {
       return fs.statSync(p).isDirectory();

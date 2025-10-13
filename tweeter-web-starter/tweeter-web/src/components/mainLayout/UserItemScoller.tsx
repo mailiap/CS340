@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { UserInfoContext, UserInfoActionsContext } from "../userInfo/UserInfoContexts";
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AuthToken, FakeData, User } from "tweeter-shared";
-import { ToastActionsContext } from "../toaster/ToastContexts";
 import { useParams } from "react-router-dom";
 import { ToastType } from "../toaster/Toast";
 import UserItem from "../userItem/UserItem";
+import { useMessageActions } from "../toaster/MessageHooks";
+import { useUserInfo, useUserInfoActions } from "../userInfo/UserHooks";
 
 export const PAGE_SIZE = 10;
 
@@ -22,7 +21,7 @@ interface Props {
 }
 
 const UserItemScroller = (props: Props) => {
-const { displayToast } = useContext(ToastActionsContext);
+  const { displayErrorMessage } = useMessageActions();
   const [items, setItems] = useState<User[]>([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [lastItem, setLastItem] = useState<User | null>(null);
@@ -30,11 +29,10 @@ const { displayToast } = useContext(ToastActionsContext);
   const addItems = (newItems: User[]) =>
     setItems((previousItems) => [...previousItems, ...newItems]);
 
-  const { displayedUser, authToken } = useContext(UserInfoContext);
-  const { setDisplayedUser } = useContext(UserInfoActionsContext);
+  const { displayedUser, authToken } = useUserInfo();
+  const { setDisplayedUser } = useUserInfoActions();
   const { displayedUser: displayedUserAliasParam } = useParams();
 
-  // Update the displayed user context variable whenever the displayedUser url parameter changes. This allows browser forward and back buttons to work correctly.
   useEffect(() => {
     if (
       authToken &&
@@ -49,7 +47,6 @@ const { displayToast } = useContext(ToastActionsContext);
     }
   }, [displayedUserAliasParam]);
 
-  // Initialize the component whenever the displayed user changes
   useEffect(() => {
     reset();
     loadMoreItems(null);
@@ -74,11 +71,7 @@ const { displayToast } = useContext(ToastActionsContext);
       setLastItem(() => newItems[newItems.length - 1]);
       addItems(newItems);
     } catch (error) {
-      displayToast(
-        ToastType.Error,
-        `Failed to load ${props.itemDescription} because of exception: ${error}`,
-        0
-      );
+      displayErrorMessage(`Failed to load ${props.itemDescription}s`, ToastType.Error);
     }
   };
 

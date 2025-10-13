@@ -30,7 +30,7 @@ export const useMessageActions = (): MessageActions => {
         bootstrapClasses
       ),
     displayErrorMessage: (message: string, bootstrapClasses?: string) =>
-      displayToast(ToastType.Error, message, 0, undefined, bootstrapClasses),
+    displayToast(ToastType.Error, message, 0, undefined, bootstrapClasses),
     deleteMessage: deleteToast,
     deleteAllMessages: deleteAllToasts,
   };

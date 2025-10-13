@@ -1,4 +1,4 @@
-import { FontIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useMessageActions } from "../toaster/MessageHooks";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 interface OAuth {
-  icon: Parameters<typeof FontIcon>["0"]["icon"];
+  icon: Parameters<typeof FontAwesomeIcon>["0"]["icon"];
   oAuthProvider: string;
 }
 
@@ -36,7 +36,7 @@ const OAuthButton = (props: OAuth) => {
           </Tooltip>
         }
       >
-        <FontIcon icon={props.icon} />
+        <FontAwesomeIcon icon={props.icon} />
       </OverlayTrigger>
     </button>
   );

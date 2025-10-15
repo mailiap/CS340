@@ -22,7 +22,6 @@ export class CsvWriter {
 				this.writeField(fields[i]);
 			}
 			console.log();
-			
 		}
 	}
 

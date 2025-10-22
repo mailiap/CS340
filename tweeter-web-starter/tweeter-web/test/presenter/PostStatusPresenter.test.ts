@@ -20,7 +20,6 @@ describe("PostStatusPresenter", () => {
     const presenterSpy = spy(new PostStatusPresenter(mockViewInstance));
     presenter = instance(presenterSpy);
     mockService = mock<StatusService>();
-
     when((presenterSpy as any).statusService).thenReturn(instance(mockService));
   });
 

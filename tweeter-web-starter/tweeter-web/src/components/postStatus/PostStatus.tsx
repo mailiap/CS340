@@ -2,10 +2,7 @@ import "./PostStatus.css";
 import { useRef, useState } from "react";
 import { useMessageActions } from "../toaster/MessageHooks";
 import { useUserInfo } from "../userInfo/UserHooks";
-import {
-  PostStatusPresenter,
-  PostStatusView,
-} from "../../presenter/PostStatusPresenter";
+import { PostStatusPresenter, PostStatusView } from "../../presenter/PostStatusPresenter";
 
 const PostStatus = () => {
   const { displayInfoMessage, displayErrorMessage, deleteMessage } =
@@ -44,6 +41,7 @@ const PostStatus = () => {
         <textarea
           className="form-control"
           id="postStatusTextArea"
+          aria-label="postStatusTextArea"
           rows={10}
           placeholder="What's on your mind?"
           value={post}

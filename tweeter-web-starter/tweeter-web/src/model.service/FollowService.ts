@@ -71,14 +71,8 @@ export class FollowService implements Service {
 
     // TODO: Call the server
 
-    const followerCount = await this.getFollowerCount(
-      authToken,
-      userToUnfollow
-    );
-    const followeeCount = await this.getFolloweeCount(
-      authToken,
-      userToUnfollow
-    );
+    const followerCount = await this.getFollowerCount(authToken, userToUnfollow);
+    const followeeCount = await this.getFolloweeCount(authToken, userToUnfollow);
 
     return [followerCount, followeeCount];
   }

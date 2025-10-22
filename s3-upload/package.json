@@ -1,0 +1,22 @@
+{
+  "name": "s3-upload",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload": "ts-node src/s3upload.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/aws-sdk": "^0.0.42",
+    "@types/node": "^24.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.914.0"
+  }
+}
